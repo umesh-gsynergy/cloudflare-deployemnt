@@ -2,15 +2,14 @@ import { client } from "../models/contentful.sever"
 import { useLoaderData } from "@remix-run/react";
 
 export async function loader({ context }) {
-  const { env } = context;
 	const products = await client.getProducts();
-  return {products, env}
+  return {products, context}
 }
 
 export default function Index() {
-  const {products, env} = useLoaderData();
+  const {products, context} = useLoaderData();
 
-  console.log("env",env)
+  console.log("env",context)
 
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
