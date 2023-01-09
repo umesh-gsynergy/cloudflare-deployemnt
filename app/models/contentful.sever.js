@@ -1,22 +1,17 @@
-// import { getPlaiceholder } from "plaiceholder";
-
-// const SPACE = process.env.CONTENTFUL_SPACE_ID;
-// const TOKEN = process.env.CONTENTFUL_ACCESS_TOKEN;
-
-async function apiCall(query, variables) {
-  const fetchUrl = `https://graphql.contentful.com/content/v1/spaces/dd0pzd2qljb2/environments/master`;
+async function apiCall(query, context) {
+  const fetchUrl = `https://graphql.contentful.com/content/v1/spaces/${context.CONTENTFUL_SPACE_ID}/environments/master`;
   const options = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer uvc8PPAMV2pE12JTfHG-a85uDcRsmNqtH1NDInWjAHI`,
+      Authorization: `Bearer ${context.CONTENTFUL_ACCESS_TOKEN}`,
     },
-    body: JSON.stringify({ query, variables }),
+    body: JSON.stringify({ query }),
   };
   return await fetch(fetchUrl, options);
 }
 
-async function getProducts() {
+async function getProducts(context) {
   const query = `
     {
         productPageCollection {
@@ -34,7 +29,7 @@ async function getProducts() {
             }
         }
     }`;
-  const response = await apiCall(query);
+  const response = await apiCall(query, context);
   const json = await response.json();
   const formattedData = await json.data.productPageCollection.items.map(
     async (project) => {
