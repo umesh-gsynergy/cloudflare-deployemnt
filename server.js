@@ -8,6 +8,6 @@ const handleRequest = createPagesFunctionHandler({
 });
 
 export function onRequest(context) {
-  console.log("Caae");
+  console.log("Caae sdsd");
   return handleRequest(context);
 }
