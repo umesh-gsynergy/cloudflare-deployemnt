@@ -1,4 +1,4 @@
 export const onRequest = () => {
-  console.log("called 5");
+  console.log("called 6");
   return new Response("Response from function");
 };
